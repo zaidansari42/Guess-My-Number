@@ -18,9 +18,10 @@ guess.addEventListener('keydown', (e) => {
   }
 });
 
-let secretNumber;
+let secretNumber, currentScore;
 
-let currentScore;
+let playerHighScore = 0;
+highscore.textContent = playerHighScore;
 
 reset();
 
@@ -30,25 +31,30 @@ function scoreReduce() {
 }
 
 function runCheck() {
-  if (guess.value > 0 && guess.value <= 20) {
-    if (secretNumber === Number(guess.value)) {
+  let guessVal = Number(guess.value);
+
+  if (guessVal > 0 && guessVal <= 20) {
+    if (secretNumber === Number(guessVal)) {
       message.textContent = "Congrats You've guessed the right number";
 
-      document.body.style.backgroundColor = 'rgb(13, 180, 0)';
+      document.body.style.backgroundColor = '#60b347';
       number.textContent = secretNumber;
 
       highscore.textContent = currentScore;
 
       number.textContent = secretNumber;
-    } else if (secretNumber > Number(guess.value)) {
-      message.textContent = 'Too low!! Try again.....';
+    } else {
+      if (currentScore > 1) {
+        message.textContent =
+          secretNumber > guessVal ? 'Too Low 👇' : 'Too High 👆';
 
-      scoreReduce();
-      guess.value = '';
-    } else if (secretNumber < Number(guess.value)) {
-      message.textContent = 'Too High!! Try again.....';
-      scoreReduce();
-      guess.value = '';
+        scoreReduce();
+        guessVal = '';
+      } else {
+        message.textContent = 'Sorry. You have run out of Tries';
+
+        score.textContent = 0;
+      }
     }
   } else {
     message.textContent =
