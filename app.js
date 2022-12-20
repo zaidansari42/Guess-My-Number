@@ -30,7 +30,7 @@ function scoreReduce() {
 }
 
 function runCheck() {
-  if (secretNumber > 0 && secretNumber <= 20) {
+  if (guess.value > 0 && guess.value <= 20) {
     if (secretNumber === Number(guess.value)) {
       message.textContent = "Congrats You've guessed the right number";
 
@@ -67,6 +67,7 @@ function reset() {
   guess.value = '';
 
   message.textContent = 'Start guessing...';
+  number.textContent = '?';
 }
 
 again.addEventListener('click', reset);
